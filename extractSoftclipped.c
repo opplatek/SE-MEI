@@ -39,14 +39,14 @@ void usage(char *prog) {
 This program iterates over alignments in a SAM/BAM file and looks for reads that\n\
 have soft-clipped regions. It then takes those soft-clipped regions and outputs\n\
 them in gzipped fastq format to the console (so that one can redirect to a new\n\
-file).\n\
+file). Output format: readName_samFlag_mapq_chrName:leftMostPos.\n\
 \n\
 Options\n\
 \n\
 -q INT   The minimum MAPQ of an alignment to be considered for inclusion\n\
          (default 0).\n\
 \n\
--l INT   The minimum length of the soft-clipped segment (default 10 bases).\n");
+-l INT   The minimum length of the soft-clipped segment (default 1 base).\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     bam1_t *b = NULL;
     htsFile *fp = NULL;
     FILE *of = NULL;
-    int i, op, op_len, is_softclipped, length = 10, minMAPQ = 0;
+    int i, op, op_len, is_softclipped, length = 1, minMAPQ = 0;
     uint32_t *cigar;
 
     if(argc==1) {
