@@ -20,7 +20,7 @@ void process_alignment(bam1_t *b, bam_hdr_t *hdr, FILE *of, int length) {
             if(bam_cigar_type(op)&1) apos += op_len;
         } else {
             /*fprintf(of, "@%s:%"PRId32"\n", hdr->target_name[b->core.tid], pos);*/
-            fprintf(of, "%s_%i_%i_%s:%"PRId32"\n", bam_get_qname(b), b->core.flag, b->core.qual, hdr->target_name[b->core.tid], pos); /*# Modified - readName_samFlag_mapq_chromName:leftmostPos*/
+            fprintf(of, "%s_%i_%i_%s:%"PRId32"\n", bam_get_qname(b), b->core.flag, b->core.qual, hdr->target_name[b->core.tid], b->core.pos+1); /*# Modified - readName_samFlag_mapq_chromName:leftmostMapPos*/
             for(j=0; j < op_len; j++) {
                 fprintf(of, "%c", int2char[bam_seqi(bam_get_seq(b), j+apos)]);
             }
